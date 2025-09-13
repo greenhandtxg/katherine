@@ -4,16 +4,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>The Intersection - Katherine's Blog</title>
+    <title>Blog - Katherine's Blog</title>
 
     <!-- Optimized Font Loading -->
     <link
-        href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;400&family=Raleway:wght@400;500&family=Dancing+Script:wght@600&family=Merriweather:wght@300;400&display=swap"
+        href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Raleway:wght@400;500&family=Dancing+Script:wght@600&display=swap"
         rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 
     <style>
-       /* Base Styles */
+        /* Base Styles */
         * {
             margin: 0;
             padding: 0;
@@ -54,7 +54,7 @@
             padding: 0 2rem;
         }
 
-       .logo {
+        .logo {
             font: 600 1.8rem 'Dancing Script', cursive;
             color: var(--primary);
             text-decoration: none;
@@ -125,41 +125,91 @@
         .mobile-menu-toggle {
             display: none;
         }
-        /* Article Header */
-        .article-header {
-            margin-top: 80px;
+
+        /* Blog List Header */
+        .blog-header {
             padding: 4rem 2rem 3rem;
             background: linear-gradient(135deg, rgba(212, 165, 116, 0.05), rgba(232, 196, 160, 0.05));
             text-align: center;
             animation: fadeIn 1s ease;
         }
 
-        .article-category {
+        .blog-title {
+            font: 700 clamp(2rem, 4vw, 3rem)/1.2 'Playfair Display', serif;
+            color: var(--text);
+            margin-bottom: 1rem;
+        }
+
+        .blog-subtitle {
+            color: var(--light);
+            font-size: 1.1rem;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* Blog List */
+        .blog-list-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 2rem;
+            animation: slideUp 1s ease .4s both;
+        }
+
+        .blog-card {
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, .08);
+            overflow: hidden;
+            transition: transform .3s, box-shadow .3s;
+            text-decoration: none;
+            color: inherit;
+        }
+
+        .blog-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 50px rgba(0, 0, 0, .12);
+        }
+
+        .blog-card-image {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+
+        .blog-card-content {
+            padding: 1.5rem;
+        }
+
+        .blog-card-category {
             display: inline-block;
             color: var(--primary);
             font-weight: 500;
             text-transform: uppercase;
             letter-spacing: 2px;
             font-size: 0.85rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .blog-card-title {
+            font: 700 1.5rem/1.3 'Playfair Display', serif;
+            color: var(--text);
+            margin-bottom: 0.75rem;
+        }
+
+        .blog-card-excerpt {
+            font: 400 0.95rem/1.6 'Raleway', sans-serif;
+            color: var(--light);
             margin-bottom: 1rem;
         }
 
-        .article-title {
-            font: 700 clamp(2rem, 4vw, 3rem)/1.2 'Playfair Display', serif;
-            color: var(--text);
-            margin-bottom: 1.5rem;
-            max-width: 800px;
-            margin-left: auto;
-            margin-right: auto;
-        }
-
-        .article-meta {
+        .blog-card-meta {
             display: flex;
-            gap: 2rem;
-            justify-content: center;
-            align-items: center;
+            gap: 1rem;
             color: var(--light);
-            font-size: 0.95rem;
+            font-size: 0.9rem;
         }
 
         .meta-item {
@@ -172,152 +222,15 @@
             color: var(--primary);
         }
 
-        /* Article Content */
-        .article-container {
-            max-width: 800px;
-            margin: 0 auto;
-            padding: 3rem 2rem;
-            animation: slideUp 1s ease .3s both;
-        }
-
-        .article-content {
-            background: white;
-            border-radius: 12px;
-            padding: 3rem;
-            box-shadow: 0 10px 40px rgba(0, 0, 0, .08);
-        }
-
-        /* Typography for article */
-        .article-content p {
-            font: 400 1.1rem/1.8 'Merriweather', serif;
-            color: var(--text);
-            margin-bottom: 1.5rem;
-            text-align: justify;
-        }
-
-        .article-content p:first-of-type::first-letter {
-            font-size: 4rem;
-            float: left;
-            line-height: 1;
-            margin: 0 0.5rem 0 0;
-            color: var(--primary);
-            font-family: 'Playfair Display', serif;
-            font-weight: 700;
-        }
-
-        .article-content p:last-child {
-            margin-bottom: 0;
-        }
-
-        /* Quote Section */
-        .pull-quote {
-            margin: 2rem 0;
-            padding: 1.5rem 2rem;
-            border-left: 4px solid var(--primary);
-            background: linear-gradient(90deg, rgba(212, 165, 116, 0.05), transparent);
-            font-style: italic;
-            font-size: 1.2rem;
-            color: var(--primary);
-            font-family: 'Playfair Display', serif;
-        }
-
-        /* Article Footer */
-        .article-footer {
-            margin-top: 3rem;
-            padding-top: 2rem;
-            border-top: 1px solid rgba(212, 165, 116, 0.3);
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            flex-wrap: wrap;
-            gap: 1rem;
-        }
-
-        .share-section {
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-        }
-
-        .share-label {
-            font-weight: 500;
-            color: var(--text);
-        }
-
-        .share-icons {
-            display: flex;
-            gap: 0.5rem;
-        }
-
-        .share-btn {
-            width: 2.5rem;
-            height: 2.5rem;
-            border-radius: 50%;
-            border: 2px solid var(--primary);
-            color: var(--primary);
-            display: grid;
-            place-items: center;
-            transition: all .3s;
-            text-decoration: none;
-        }
-
-        .share-btn:hover {
-            background: var(--primary);
-            color: white;
-            transform: translateY(-2px);
-        }
-
-        .back-link {
-            color: var(--primary);
-            text-decoration: none;
-            font-weight: 500;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            transition: gap .3s;
-        }
-
-        .back-link:hover {
-            gap: 1rem;
-        }
-
-        /* Author Bio */
-        .author-bio {
-            max-width: 800px;
-            margin: 2rem auto;
-            padding: 2rem;
-            background: white;
-            border-radius: 12px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, .08);
-            display: flex;
-            gap: 2rem;
-            align-items: center;
-            animation: fadeIn 1s ease .5s both;
-        }
-
-        .author-avatar {
-            width: 100px;
-            height: 100px;
-            border-radius: 50%;
-            object-fit: cover;
-            border: 3px solid var(--primary);
-        }
-
-        .author-info h3 {
-            font: 700 1.3rem/1.2 'Playfair Display', serif;
-            color: var(--text);
-            margin-bottom: 0.5rem;
-        }
-
-        .author-info p {
-            color: var(--light);
-            font-size: 0.95rem;
-        }
-
         /* Animations */
         @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
+            from {
+                opacity: 0;
+            }
+
+            to {
+                opacity: 1;
+            }
         }
 
         @keyframes slideUp {
@@ -325,6 +238,7 @@
                 opacity: 0;
                 transform: translateY(30px);
             }
+
             to {
                 opacity: 1;
                 transform: translateY(0);
@@ -351,28 +265,13 @@
                 transition: all .3s;
             }
 
-            .article-content {
-                padding: 2rem 1.5rem;
+            .blog-list-container {
+                grid-template-columns: 1fr;
+                padding: 1rem;
             }
 
-            .article-content p {
-                font-size: 1rem;
-                text-align: left;
-            }
-
-            .article-meta {
-                flex-direction: column;
-                gap: 0.5rem;
-            }
-
-            .author-bio {
-                flex-direction: column;
-                text-align: center;
-            }
-
-            .article-footer {
-                flex-direction: column;
-                text-align: center;
+            .blog-card-image {
+                height: 150px;
             }
         }
     </style>
@@ -382,16 +281,18 @@
     <!-- Navigation -->
     <nav class="navbar">
         <div class="nav-container">
-            <a href="home.html" class="logo">Katherine</a>
+            <a href="#" class="logo">Katherine</a>
             <ul class="nav-menu">
                 <li><a href="home.html" class="nav-link">Home</a></li>
                 <li><a href="about.html" class="nav-link">About</a></li>
                 <li><a href="blog.html" class="nav-link active">Blog</a></li>
             </ul>
-             <div class="social-nav">
-                <a href="https://www.instagram.com/alinanadouglas/?igsh=MXNmYW95ZnNsMXRjdw%3D%3D&utm_source=qr#" class="social-icon"><i class="fab fa-instagram"></i></a>
-                <a href="https:www.twitter.com" class="social-icon"><i class="fab fa-twitter"></i></a>
-                <a href="https://www.youtube.com/@catherinedong-zzz" class="social-icon"><i class="fab fa-youtube"></i></a>
+            <div class="social-nav">
+                <a href="https://www.instagram.com/alinanadouglas/?igsh=MXNmYW05ZnNsMXRjdw%3D%3D&utm_source=qr#"
+                    class="social-icon"><i class="fab fa-instagram"></i></a>
+                <a href="https://www.twitter.com" class="social-icon"><i class="fab fa-twitter"></i></a>
+                <a href="https://www.youtube.com/@catherinedong-zzz" class="social-icon"><i
+                        class="fab fa-youtube"></i></a>
             </div>
             <div class="mobile-menu-toggle">
                 <span></span>
@@ -401,71 +302,75 @@
         </div>
     </nav>
 
-    <!-- Article Header -->
-    <header class="article-header">
-        <!-- <span class="article-category">Personal Journey</span> -->
-        <h1 class="article-title">The Intersection: Where Communication Meets Psychology</h1>
-        <div class="article-meta">
-            <span class="meta-item">
-                <i class="far fa-calendar"></i>
-                December 20, 2025
-            </span>
-            <span class="meta-item">
-                <i class="far fa-clock"></i>
-                5 min read
-            </span>
-            <span class="meta-item">
-                <i class="far fa-user"></i>
-                Katherine
-            </span>
-        </div>
+    <!-- Blog Header -->
+    <header class="blog-header">
+        <h1 class="blog-title">Katherine's Blog</h1>
+        <p class="blog-subtitle">Exploring the intersections of communication, psychology, and mindfulness</p>
     </header>
 
-    <!-- Article Content -->
-    <article class="article-container">
-        <div class="article-content">
-            <p>
-                Every academic path tells a story, not only about career goals, but also about how a person understands their place in the world. For me, choosing between communication studies and psychology is never about choosing between two unrelated fields, but about organically weaving together the skills of expressing ideas and understanding the mind.
-            </p>
-
-            <p>
-                The core of communication goes far beyond information transmission, it is more about shaping meaning, establishing trust, and creating spaces where every voice can be truly heard. For many years, I have been deeply involved in the fields of online media and marketing, and these experiences have enhanced my narrative analysis, audience insight, and content creation abilities, enabling me to create messages that resonate even in an environment of information overload.
-            </p>
-
-            <div class="pull-quote">
-                "The essence of communication is a practice of empathy: sincerely listening before responding, understanding the true emotions between words and silence."
-            </div>
-
-            <p>
-                This communication foundation also provides support for my future career as a psychological counselor. The transition from studying the flow of ideas on digital platforms to exploring the surging emotions within individuals may seem like a leap on the surface, but for me, it is a natural continuation - especially for teenagers. They grew up in an era surrounded by the media, but often lack a safe space to translate their inner struggles into language. I am willing to become a bridge builder, combining media literacy with emotional literacy, helping them find the possibility of expression between external noise and internal chaos.
-            </p>
-
-            <p>
-                Behind all these choices are some basic values that guide me forward: patience, reflection, and the belief that 'everyone deserves to be understood'. They have a more profound impact on my decisions than any course syllabus or career list. For me, learning has never been a stage in life, but a continuous rhythm. Whether through reading, observing, or contemplating while walking, I have come to realize that curiosity eventually expands into sympathy.
-            </p>
-
-            <p>
-                Therefore, this blog is both a record and a diary about "intersections". Here, media and meaning meet, learning and goals are connected, and ambition and empathy coexist. It reminds me, and perhaps every reader, that career paths may not always be a straight line. It can spiral upwards, pause, or connect seemingly unrelated fields. But as long as the vision is clear and the direction is firm, this journey will eventually become a story worth telling.
-            </p>
-
-            <!-- Article Footer -->
-            <!-- <div class="article-footer">
-                <div class="share-section">
-                    <span class="share-label">Share:</span>
-                    <div class="share-icons">
-                        <a href="#" class="share-btn"><i class="fab fa-facebook-f"></i></a>
-                        <a href="#" class="share-btn"><i class="fab fa-twitter"></i></a>
-                        <a href="#" class="share-btn"><i class="fab fa-linkedin-in"></i></a>
-                    </div>
+    <!-- Blog List -->
+    <section class="blog-list-container">
+        <a href="001.html" class="blog-card">
+            <img src="assets/Mindfulness_face.png" alt="Blog post image" class="blog-card-image">
+            <div class="blog-card-content">
+                <span class="blog-card-category">Mindfulness</span>
+                <h2 class="blog-card-title">The Intersection: Where Communication Meets Psychology</h2>
+                <p class="blog-card-excerpt">Exploring how communication and psychology intertwine to create meaningful
+                    connections and personal growth through mindfulness.</p>
+                <div class="blog-card-meta">
+                    <span class="meta-item"><i class="far fa-calendar"></i> December 20, 2025</span>
+                    <span class="meta-item"><i class="far fa-clock"></i> 5 min read</span>
                 </div>
-                <a href="blog.html" class="back-link">
-                    <i class="fas fa-arrow-left"></i> Back to Blog
-                </a>
-            </div> -->
-        </div>
-    </article>
+            </div>
+        </a>
+        <a href="002.html" class="blog-card">
+            <img src="assets/filter.jpg" alt="Social media and reality" class="blog-card-image">
+            <div class="blog-card-content">
+                <span class="blog-card-category">Digital Life</span>
+                <h2 class="blog-card-title">Beyond the Highlight Reel</h2>
+                <p class="blog-card-excerpt">
+                    Exploring the emotional gap between our polished online images and real-life feelings — and how we
+                    can use communication to build authentic connection.
+                </p>
+                <div class="blog-card-meta">
+                    <span class="meta-item"><i class="far fa-calendar"></i> November 15, 2025</span>
+                    <span class="meta-item"><i class="far fa-clock"></i> 4 min read</span>
+                </div>
+            </div>
+        </a>
 
-   
+        <a href="003.html" class="blog-card">
+            <img src="assets/talking.png" alt="Blog post image" class="blog-card-image">
+            <div class="blog-card-content">
+                <span class="blog-card-category">Psychology</span>
+                <h2 class="blog-card-title">Understanding Emotional Literacy</h2>
+                <p class="blog-card-excerpt">Learn how emotional literacy can bridge the gap between inner struggles and
+                    meaningful expression for teenagers.</p>
+                <div class="blog-card-meta">
+                    <span class="meta-item"><i class="far fa-calendar"></i> October 10, 2025</span>
+                    <span class="meta-item"><i class="far fa-clock"></i> 6 min read</span>
+                </div>
+            </div>
+        </a>
+
+        <a href="004.html" class="blog-card">
+            <img src="assets/walking.png" alt="Peaceful walk for reflection" class="blog-card-image">
+            <div class="blog-card-content">
+                <span class="blog-card-category">Well-being</span>
+                <h2 class="blog-card-title">The Power of a Quiet Walk</h2>
+                <p class="blog-card-excerpt">
+                    How purposeful walking creates mental space, untangles thoughts, and helps young people build
+                    resilience in an overwhelming world.
+                </p>
+                <div class="blog-card-meta">
+                    <span class="meta-item"><i class="far fa-calendar"></i> October 10, 2025</span>
+                    <span class="meta-item"><i class="far fa-clock"></i> 5 min read</span>
+                </div>
+            </div>
+        </a>
+
+
+    </section>
 
     <script>
         // Mobile menu toggle

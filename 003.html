@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Beyond "Just Talk About It" - Katherine's Blog</title>
+
+    <!-- Optimized Font Loading -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Raleway:wght@400;500&family=Dancing+Script:wght@600&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    
+    <style>
+        /* Base Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #d4a574;
+            --text: #3a3a3a;
+            --light: #666;
+            --bg: #faf8f5;
+        }
+
+        body {
+            font: 400 16px/1.6 'Raleway', sans-serif;
+            color: var(--text);
+            background: var(--bg);
+            min-height: 100vh;
+        }
+
+        /* Navigation */
+        .navbar {
+            background: rgba(255, 255, 255, .95);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 2px 20px rgba(0, 0, 0, .08);
+            padding: 1rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 2rem;
+        }
+
+        .logo {
+            font: 600 1.8rem 'Dancing Script', cursive;
+            color: var(--primary);
+            text-decoration: none;
+            transition: transform .3s;
+        }
+
+        .logo:hover {
+            transform: scale(1.05);
+        }
+
+        .nav-menu {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        .nav-link {
+            color: var(--text);
+            text-decoration: none;
+            font-weight: 500;
+            position: relative;
+            transition: color .3s;
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--primary);
+            transition: width .3s;
+        }
+
+        .nav-link:hover,
+        .nav-link.active {
+            color: var(--primary);
+        }
+
+        .nav-link:hover::after,
+        .nav-link.active::after {
+            width: 100%;
+        }
+
+        .social-nav {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .social-icon {
+            width: 2rem;
+            height: 2rem;
+            border-radius: 50%;
+            background: var(--bg);
+            display: grid;
+            place-items: center;
+            color: var(--primary);
+            transition: all .3s;
+        }
+
+        .social-icon:hover {
+            background: var(--primary);
+            color: white;
+            transform: translateY(-2px);
+        }
+
+        .mobile-menu-toggle {
+            display: none;
+        }
+
+        /* Article Header */
+        .article-header {
+            padding: 4rem 2rem 3rem;
+            background: linear-gradient(135deg, rgba(212, 165, 116, 0.05), rgba(232, 196, 160, 0.05));
+            text-align: center;
+            animation: fadeIn 1s ease;
+        }
+
+        .article-category {
+            display: inline-block;
+            color: var(--primary);
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-size: 0.85rem;
+            margin-bottom: 1rem;
+        }
+
+        .article-title {
+            font: 700 clamp(2rem, 4vw, 3rem)/1.2 'Playfair Display', serif;
+            color: var(--text);
+            margin-bottom: 1.5rem;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .article-meta {
+            display: flex;
+            gap: 2rem;
+            justify-content: center;
+            align-items: center;
+            color: var(--light);
+            font-size: 0.95rem;
+        }
+
+        .meta-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .meta-item i {
+            color: var(--primary);
+        }
+
+        /* Image Container */
+        .image-section {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 0 2rem 2rem;
+            animation: slideUp 1s ease .2s both;
+        }
+
+        .image-container {
+            position: relative;
+            padding-bottom: 56.25%; /* 16:9 Aspect Ratio */
+            height: 0;
+            overflow: hidden;
+            border-radius: 12px;
+            box-shadow: 0 15px 50px rgba(0, 0, 0, .12);
+            background: #000;
+        }
+
+        .image-container img {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block; /* Remove inline gap */
+        }
+
+        /* Image Caption */
+        .video-caption {
+            text-align: center;
+            margin-top: 1rem;
+            font-size: 0.9rem;
+            color: var(--light);
+            font-style: italic;
+        }
+
+        /* Article Content */
+        .article-container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 2rem 2rem 3rem;
+            animation: slideUp 1s ease .4s both;
+        }
+
+        .article-content {
+            background: white;
+            border-radius: 12px;
+            padding: 3rem;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, .08);
+        }
+
+        /* Typography for article */
+        .article-content p {
+            font: 400 1.1rem/1.8 'Merriweather', serif;
+            color: var(--text);
+            margin-bottom: 1.5rem;
+            text-align: justify;
+        }
+
+        .article-content p:first-of-type::first-letter {
+            font-size: 4rem;
+            float: left;
+            line-height: 1;
+            margin: 0 0.5rem 0 0;
+            color: var(--primary);
+            font-family: 'Playfair Display', serif;
+            font-weight: 700;
+        }
+
+        .article-content p:last-child {
+            margin-bottom: 0;
+        }
+
+        /* Quote Section */
+        .pull-quote {
+            margin: 2rem 0;
+            padding: 1.5rem 2rem;
+            border-left: 4px solid var(--primary);
+            background: linear-gradient(90deg, rgba(212, 165, 116, 0.05), transparent);
+            font-style: italic;
+            font-size: 1.2rem;
+            color: var(--primary);
+            font-family: 'Playfair Display', serif;
+        }
+
+        /* Article Footer */
+        .article-footer {
+            margin-top: 1rem;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(212, 165, 116, 0.3);
+            display: flex;
+            justify-content: center; /* Center the back link */
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .back-link {
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: gap .3s;
+        }
+
+        .back-link:hover {
+            gap: 1rem;
+        }
+
+        /* Animations */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .nav-menu {
+                display: none;
+            }
+
+            .mobile-menu-toggle {
+                display: flex;
+                flex-direction: column;
+                gap: 4px;
+                cursor: pointer;
+            }
+
+            .mobile-menu-toggle span {
+                width: 25px;
+                height: 2px;
+                background: var(--text);
+                transition: all .3s;
+            }
+
+            .article-content {
+                padding: 2rem 1.5rem;
+            }
+
+            .article-content p {
+                font-size: 1rem;
+                text-align: left;
+            }
+
+            .article-meta {
+                flex-direction: column;
+                gap: 0.5rem;
+            }
+
+            .article-footer {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .image-section {
+                padding: 0 1rem 2rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="#" class="logo">Katherine</a>
+            <ul class="nav-menu">
+                <li><a href="home.html" class="nav-link">Home</a></li>
+                <li><a href="about.html" class="nav-link">About</a></li>
+                <li><a href="blog.html" class="nav-link active">Blog</a></li>
+            </ul>
+            <div class="social-nav">
+                <a href="https://www.instagram.com/alinanadouglas/?igsh=MXNmYW05ZnNsMXRjdw%3D%3D&utm_source=qr#" class="social-icon"><i class="fab fa-instagram"></i></a>
+                <a href="https://www.twitter.com" class="social-icon"><i class="fab fa-twitter"></i></a>
+                <a href="https://www.youtube.com/@catherinedong-zzz" class="social-icon"><i class="fab fa-youtube"></i></a>
+            </div>
+            <div class="mobile-menu-toggle">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Article Header -->
+    <header class="article-header">
+        <span class="article-category">Counseling & Vulnerability</span>
+        <h1 class="article-title">Beyond "Just Talk About It"</h1>
+        <div class="article-meta">
+            <span class="meta-item">
+                <i class="far fa-calendar"></i>
+                September 10, 2025
+            </span>
+            <span class="meta-item">
+                <i class="far fa-clock"></i>
+                3 min read
+            </span>
+            <span class="meta-item">
+                <i class="far fa-user"></i>
+                Katherine
+            </span>
+        </div>
+    </header>
+
+    <!-- Image Section -->
+    <section class="image-section">
+        <div class="image-container">
+            <img src="assets/talking.png" alt="Adolescent overcoming fear with a supportive counselor">
+        </div>
+        <p class="video-caption">Creating a safe space for vulnerability</p>
+    </section>
+
+    <!-- Article Content -->
+    <article class="article-container">
+        <div class="article-content">
+            <p>
+                We often tell people who are struggling, “You should talk to someone.” While the intention is good, this advice overlooks a crucial fact: asking for help is not easy. It’s a skill, and like any skill, it needs to be learned and practiced.
+            </p>
+
+            <p>
+                For an adolescent, reaching out involves overcoming significant barriers: the fear of being judged, the worry of burdening others, or simply not having the words to describe what they’re feeling. It requires immense vulnerability and courage.
+            </p>
+
+            <div class="pull-quote">
+                "It’s about co-creating a space where vulnerability is met with strength, and where a person’s story can finally be told without fear."
+            </div>
+
+            <p>
+                As I prepare for a career in counseling, I’m realizing that a big part of the job isn’t just listening; it’s creating an environment of such profound safety that the act of “talking about it” feels less like a terrifying confession and more like a welcome relief.
+            </p>
+        </div>
+    </article>
+
+    <!-- Article Footer -->
+    <footer class="article-footer">
+        <a href="blog.html" class="back-link">
+            <i class="fas fa-arrow-left"></i> Back to Blog
+        </a>
+    </footer>
+
+    <script>
+        // Mobile menu toggle
+        document.querySelector('.mobile-menu-toggle')?.addEventListener('click', function () {
+            const menu = document.querySelector('.nav-menu');
+            menu.style.display = menu.style.display === 'flex' ? 'none' : 'flex';
+        });
+    </script>
+</body>
+
+</html>
