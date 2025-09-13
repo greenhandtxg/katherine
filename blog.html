@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blog - Katherine's Blog</title>
+
+    <!-- Optimized Font Loading -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Raleway:wght@400;500&family=Dancing+Script:wght@600&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+    <style>
+        /* Base Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #d4a574;
+            --text: #3a3a3a;
+            --light: #666;
+            --bg: #faf8f5;
+        }
+
+        body {
+            font: 400 16px/1.6 'Raleway', sans-serif;
+            color: var(--text);
+            background: var(--bg);
+            min-height: 100vh;
+        }
+
+        /* Navigation */
+        .navbar {
+            background: rgba(255, 255, 255, .95);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 2px 20px rgba(0, 0, 0, .08);
+            padding: 1rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 2rem;
+        }
+
+        .logo {
+            font: 600 1.8rem 'Dancing Script', cursive;
+            color: var(--primary);
+            text-decoration: none;
+            transition: transform .3s;
+        }
+
+        .logo:hover {
+            transform: scale(1.05);
+        }
+
+        .nav-menu {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        .nav-link {
+            color: var(--text);
+            text-decoration: none;
+            font-weight: 500;
+            position: relative;
+            transition: color .3s;
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--primary);
+            transition: width .3s;
+        }
+
+        .nav-link:hover,
+        .nav-link.active {
+            color: var(--primary);
+        }
+
+        .nav-link:hover::after,
+        .nav-link.active::after {
+            width: 100%;
+        }
+
+        .social-nav {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .social-icon {
+            width: 2rem;
+            height: 2rem;
+            border-radius: 50%;
+            background: var(--bg);
+            display: grid;
+            place-items: center;
+            color: var(--primary);
+            transition: all .3s;
+        }
+
+        .social-icon:hover {
+            background: var(--primary);
+            color: white;
+            transform: translateY(-2px);
+        }
+
+        .mobile-menu-toggle {
+            display: none;
+        }
+
+        /* Blog List Header */
+        .blog-header {
+            padding: 4rem 2rem 3rem;
+            background: linear-gradient(135deg, rgba(212, 165, 116, 0.05), rgba(232, 196, 160, 0.05));
+            text-align: center;
+            animation: fadeIn 1s ease;
+        }
+
+        .blog-title {
+            font: 700 clamp(2rem, 4vw, 3rem)/1.2 'Playfair Display', serif;
+            color: var(--text);
+            margin-bottom: 1rem;
+        }
+
+        .blog-subtitle {
+            color: var(--light);
+            font-size: 1.1rem;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* Blog List */
+        .blog-list-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 2rem;
+            animation: slideUp 1s ease .4s both;
+        }
+
+        .blog-card {
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, .08);
+            overflow: hidden;
+            transition: transform .3s, box-shadow .3s;
+            text-decoration: none;
+            color: inherit;
+        }
+
+        .blog-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 50px rgba(0, 0, 0, .12);
+        }
+
+        .blog-card-image {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+
+        .blog-card-content {
+            padding: 1.5rem;
+        }
+
+        .blog-card-category {
+            display: inline-block;
+            color: var(--primary);
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-size: 0.85rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .blog-card-title {
+            font: 700 1.5rem/1.3 'Playfair Display', serif;
+            color: var(--text);
+            margin-bottom: 0.75rem;
+        }
+
+        .blog-card-excerpt {
+            font: 400 0.95rem/1.6 'Raleway', sans-serif;
+            color: var(--light);
+            margin-bottom: 1rem;
+        }
+
+        .blog-card-meta {
+            display: flex;
+            gap: 1rem;
+            color: var(--light);
+            font-size: 0.9rem;
+        }
+
+        .meta-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .meta-item i {
+            color: var(--primary);
+        }
+
+        /* Animations */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+
+            to {
+                opacity: 1;
+            }
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .nav-menu {
+                display: none;
+            }
+
+            .mobile-menu-toggle {
+                display: flex;
+                flex-direction: column;
+                gap: 4px;
+                cursor: pointer;
+            }
+
+            .mobile-menu-toggle span {
+                width: 25px;
+                height: 2px;
+                background: var(--text);
+                transition: all .3s;
+            }
+
+            .blog-list-container {
+                grid-template-columns: 1fr;
+                padding: 1rem;
+            }
+
+            .blog-card-image {
+                height: 150px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="#" class="logo">Katherine</a>
+            <ul class="nav-menu">
+                <li><a href="home.html" class="nav-link">Home</a></li>
+                <li><a href="about.html" class="nav-link">About</a></li>
+                <li><a href="blog.html" class="nav-link active">Blog</a></li>
+            </ul>
+            <div class="social-nav">
+                <a href="https://www.instagram.com/alinanadouglas/?igsh=MXNmYW05ZnNsMXRjdw%3D%3D&utm_source=qr#"
+                    class="social-icon"><i class="fab fa-instagram"></i></a>
+                <a href="https://www.twitter.com" class="social-icon"><i class="fab fa-twitter"></i></a>
+                <a href="https://www.youtube.com/@catherinedong-zzz" class="social-icon"><i
+                        class="fab fa-youtube"></i></a>
+            </div>
+            <div class="mobile-menu-toggle">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Blog Header -->
+    <header class="blog-header">
+        <h1 class="blog-title">Katherine's Blog</h1>
+        <p class="blog-subtitle">Exploring the intersections of communication, psychology, and mindfulness</p>
+    </header>
+
+    <!-- Blog List -->
+    <section class="blog-list-container">
+        <a href="001.html" class="blog-card">
+            <img src="assets/Mindfulness_face.png" alt="Blog post image" class="blog-card-image">
+            <div class="blog-card-content">
+                <span class="blog-card-category">Mindfulness</span>
+                <h2 class="blog-card-title">The Intersection: Where Communication Meets Psychology</h2>
+                <p class="blog-card-excerpt">Exploring how communication and psychology intertwine to create meaningful
+                    connections and personal growth through mindfulness.</p>
+                <div class="blog-card-meta">
+                    <span class="meta-item"><i class="far fa-calendar"></i> December 20, 2025</span>
+                    <span class="meta-item"><i class="far fa-clock"></i> 5 min read</span>
+                </div>
+            </div>
+        </a>
+        <a href="002.html" class="blog-card">
+            <img src="assets/filter.jpg" alt="Social media and reality" class="blog-card-image">
+            <div class="blog-card-content">
+                <span class="blog-card-category">Digital Life</span>
+                <h2 class="blog-card-title">Beyond the Highlight Reel</h2>
+                <p class="blog-card-excerpt">
+                    Exploring the emotional gap between our polished online images and real-life feelings — and how we
+                    can use communication to build authentic connection.
+                </p>
+                <div class="blog-card-meta">
+                    <span class="meta-item"><i class="far fa-calendar"></i> November 15, 2025</span>
+                    <span class="meta-item"><i class="far fa-clock"></i> 4 min read</span>
+                </div>
+            </div>
+        </a>
+
+        <a href="003.html" class="blog-card">
+            <img src="assets/talking.png" alt="Blog post image" class="blog-card-image">
+            <div class="blog-card-content">
+                <span class="blog-card-category">Psychology</span>
+                <h2 class="blog-card-title">Understanding Emotional Literacy</h2>
+                <p class="blog-card-excerpt">Learn how emotional literacy can bridge the gap between inner struggles and
+                    meaningful expression for teenagers.</p>
+                <div class="blog-card-meta">
+                    <span class="meta-item"><i class="far fa-calendar"></i> October 10, 2025</span>
+                    <span class="meta-item"><i class="far fa-clock"></i> 6 min read</span>
+                </div>
+            </div>
+        </a>
+
+        <a href="004.html" class="blog-card">
+            <img src="assets/walking.png" alt="Peaceful walk for reflection" class="blog-card-image">
+            <div class="blog-card-content">
+                <span class="blog-card-category">Well-being</span>
+                <h2 class="blog-card-title">The Power of a Quiet Walk</h2>
+                <p class="blog-card-excerpt">
+                    How purposeful walking creates mental space, untangles thoughts, and helps young people build
+                    resilience in an overwhelming world.
+                </p>
+                <div class="blog-card-meta">
+                    <span class="meta-item"><i class="far fa-calendar"></i> October 10, 2025</span>
+                    <span class="meta-item"><i class="far fa-clock"></i> 5 min read</span>
+                </div>
+            </div>
+        </a>
+
+
+    </section>
+
+    <script>
+        // Mobile menu toggle
+        document.querySelector('.mobile-menu-toggle')?.addEventListener('click', function () {
+            const menu = document.querySelector('.nav-menu');
+            menu.style.display = menu.style.display === 'flex' ? 'none' : 'flex';
+        });
+    </script>
+</body>
+
+</html>
